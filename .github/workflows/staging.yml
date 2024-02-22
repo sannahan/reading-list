@@ -19,7 +19,7 @@ jobs:
           image: reading-list-frontend
           tags: staging ${{ github.sha }}
           containerfiles: |
-            ./Containerfile
+            ./Dockerfile
 
       - name: Push to quay.io
         uses: redhat-actions/push-to-registry@v2
