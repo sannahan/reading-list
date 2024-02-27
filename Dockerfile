@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# OpenShift ei salli tietoturvasyistä konttien ajoa root-oikeuksilla. 
+# Suoritusaikaisen kontin käyttäjän UID on sattumanvarainen ja käyttäjä kuuluu aina root-ryhmään.
+RUN chgrp -R root * && chmod -R 660 *
+
 # Build the React app
 RUN npm run build
 
