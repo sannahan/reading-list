@@ -12,11 +12,11 @@ COPY . .
 RUN npm run build
 
 # Use Nginx as the production server
-FROM nginx:alpine
+FROM nginxinc/nginx-unprivileged
 # Copy the built React app to Nginx's web server directory
 COPY --from=build /app/dist /usr/share/nginx/html
-# Expose port 80 for the Nginx server
-EXPOSE 80
+# Expose port 8080 for the Nginx server
+EXPOSE 8080
 # OpenShift ei salli tietoturvasyistä konttien ajoa root-oikeuksilla. 
 # Suoritusaikaisen kontin käyttäjän UID on sattumanvarainen ja käyttäjä kuuluu aina root-ryhmään.
 # RUN chgrp -R 0 * && chmod -R g+rwX *
