@@ -1,15 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import Book from "./components/Book"
+import finnaApi from "./services/finnaApi"
+import { useState, useEffect } from 'react'
 
-const Greeting = (props) => (
+const BookList = () => {
+
+  const [books, setBooks] = useState([])
+
+  useEffect(() => {
+    finnaApi
+      .getYanagiharaBooks()
+      .then(data => {
+        setBooks(data.records)
+      })
+  }, [])
+
+  return (
     <div>
-      <p>Hello {props.name}!</p>
+      <h1>Book List</h1>
+      <ul>{books.map(book => <Book key={book.id} book={book}/>)}</ul>
     </div>
-)
+  )
+}
 
 const App = () => (
-    <Greeting name='world' />
+    <BookList />
 )
 
 export default App
